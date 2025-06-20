@@ -20,12 +20,15 @@ services:
     ports:
       - '13306:3306'
     volumes:
-      - ./data/mysql:/var/lib/mysql # ./data/mysql 폴더를 컨테이너의 /var/lib/mysql 폴더에 마운트
-
+      - code-stream-mysql-data:/var/lib/mysql
   redis:
     image: redis:7.4.1
     restart: unless-stopped # 컨테이너가 종료되면 자동으로 다시 시작
     ports:
       - '16379:6379'
     volumes:
-      - ./data/redis:/data
+      - code-stream-redis-data:/data
+
+volumes:
+  code-stream-mysql-data:
+  code-stream-redis-data:

@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 
+echo 'pre-commit'
+
 pnpm format
 pnpm lint

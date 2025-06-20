@@ -1,0 +1,31 @@
+services:
+  mysql:
+    image: mysql:8.0.42
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - '-h'
+        - localhost
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      MYSQL_ROOT_PASSWORD: qwer1234
+      MYSQL_DATABASE: code-stream
+      MYSQL_USER: jungmini
+      MYSQL_PASSWORD: qwer1234
+    ports:
+      - '13306:3306'
+    volumes:
+      - ./data/mysql:/var/lib/mysql # ./data/mysql 폴더를 컨테이너의 /var/lib/mysql 폴더에 마운트
+
+  redis:
+    image: redis:7.4.1
+    restart: unless-stopped # 컨테이너가 종료되면 자동으로 다시 시작
+    ports:
+      - '16379:6379'
+    volumes:
+      - ./data/redis:/data
